@@ -101,7 +101,7 @@ public class FilmDataLayer
     {
         try
         {
-            String query = "{CALL testFilmDetails()}";
+            String query = Database.FilmsQuery;
             //Scrollable result sets
             CallableStatement stmt = conn.prepareCall(query);
             
