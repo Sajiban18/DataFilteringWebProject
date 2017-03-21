@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <h:head>
+        <h:outputStylesheet library="css" name="style.css"/>
+        <title>Add Film</title>
+    </h:head>
+    
+    <h:body class="page">
+        <h:form>
+            <div class="title">Add Film</div>
+            <h:panelGrid styleClass="add" columns="3">
+                <h:outputLabel for="fname">Name: </h:outputLabel>
+                <h:inputText value="#{addFilm.FName}" id="fname"></h:inputText>
+                <br/>
+                <br/>
+                
+                <h:outputLabel for="fid">Imdb ID: </h:outputLabel>
+                <h:inputText value="#{addFilm.FID}" id="fid" maxlength="7" validator="#{base.ValidateImdbID}"></h:inputText>
+                <br/>
+                <br/>
+                
+                <h:outputLabel for="frating">Imdb Rating: </h:outputLabel>
+                <h:inputText value="#{addFilm.FRating}" id="frating" maxlength="4" validator="#{base.ValidateFilmRating}"></h:inputText>
+                <br/>
+                <br/>
+                
+                <h:outputLabel for="fyear">Year: </h:outputLabel>
+                <h:inputText value="#{addFilm.FYear}" id="fyear" maxlength="4" validator="#{base.ValidateFilmYear}"></h:inputText>
+                <br/>
+                <br/>
+                
+                <h:commandButton action="#{addFilm.load()}" value="Submit"></h:commandButton>
+                <h:message class="error" for="message" id="sucessError"/>
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>
+

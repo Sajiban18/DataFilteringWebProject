@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+     <h:head>
+        <h:outputStylesheet library="css" name="style.css"/>
+        <title>Add Actor</title>
+    </h:head>
+    
+    <h:body class="page">
+        <h:form>
+            <div class="title">Add Actor</div>
+            <h:panelGrid styleClass="add" columns="3">
+                <h:outputLabel for="afname">Firstname: </h:outputLabel>
+                <h:inputText value="#{addActor.AFName}" id="afname"></h:inputText>
+                <br/>
+                <br/>
+                
+                <h:outputLabel for="asname">Surname: </h:outputLabel>
+                <h:inputText value="#{addActor.ASName}" id="asname"></h:inputText>
+                <br/>
+                <br/>
+                
+                <h:outputLabel for="aid">Imdb Actor ID: </h:outputLabel>
+                <h:inputText value="#{addActor.AID}" id="aid" maxlength="7" validator="#{base.ValidateImdbID}"></h:inputText>
+                <br/>
+                <br/>
+                
+                <h:outputLabel for="fid">Imdb Film ID: </h:outputLabel>
+                <h:inputText value="#{addActor.FID}" id="fid" maxlength="7" validator="#{base.ValidateImdbID}"></h:inputText>
+                <br/>
+                <br/>
+                
+                <h:commandButton action="#{addActor.load()}" value="Submit"></h:commandButton>
+                <h:message class="error" for="message" id="sucessError"/>
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>

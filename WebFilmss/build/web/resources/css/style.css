@@ -1,0 +1,71 @@
+.title {
+    border: 1px solid black;
+    margin: 0px 0px 0px 0px;
+    background-color: #4682B4;
+    padding: 25px 0px 25px 0px; 
+    text-align: center;
+    color: #FFFFFF;
+    font-size: 25px;
+}
+
+.add{
+    border: 1px solid black;
+    margin-right: 70%;
+    margin-top: 15px;
+    margin-bottom: auto;
+    background-color: #4682B4;
+    padding: 10px 0px 25px 25px;
+    font-size: 15px;
+    color: #FFFFFF;
+}
+
+.dropdowntitle{
+    padding-right: 20px;
+    font-size: 15px;
+    color: #FFFFFF;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.dropdownlist{
+    width: 250px;
+}
+
+h3 {
+    margin: -250px 15px 15px 450px;
+}
+
+.dropdown{
+    border: 1px solid black;
+    margin-right: 70%;
+    margin-top: 15px;
+    margin-bottom: auto;
+    background-color: #4682B4;
+    padding: 10px 0px 25px 25px;
+}
+
+.page{
+    background-color: #C0C0C0;
+}
+
+.filmdescription{
+    text-align: center;
+    margin-left: 40%;
+    margin-top: 0px;
+    margin-bottom: 15px;
+    font-size: 15px;
+    align-content: center;
+}
+
+.reset{
+    text-align: center;
+    margin-left: 81%;
+}
+
+.buttons{
+    text-align: center;
+    margin-top: 250px;
+    margin-bottom: 15px;
+    font-size: 15px;
+}
+
