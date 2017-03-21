@@ -21,6 +21,7 @@ public class ApplicationVariables
         public static String dbURL = "jdbc:mysql://localhost:3306/db_movie?autoReconnect=true&useSSL=false";
         public static String username = "root";
         public static String password = "Saji_SQL!123";
+        public static String FilmsQuery = "{CALL getFilmDetails()}";
         public static String FilmQuery = "{CALL addFilm(?,?,?,?,?)}";
         public static String ActorQuery = "{CALL addActor(?,?,?,?,?)}";
         public static String DirectorQuery = "{CALL addDirector(?,?,?,?,?)}";
