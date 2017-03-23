@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <h:head>
+        <h:outputStylesheet library="css" name="style.css"/>
+        <title>Upload Data</title>
+    </h:head>
+    
+    <h:body class="page">
+        <h:form id="form" enctype="multipart/form-data">
+            <div class="title">Upload Data</div>
+            <h:panelGrid styleClass="add" columns="3">
+                <h:inputFile id="file" value="#{bean.file}" validator=""/>
+                
+                
+                <h:commandButton action="#{uploadData.upload()}" value="Upload"></h:commandButton>
+                <h:message class="error" for="message" id="sucessError"/>
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>

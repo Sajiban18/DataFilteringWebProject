@@ -7,12 +7,33 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.Part;
 
 @ManagedBean(name="base")
 @ViewScoped
 
-public class Base 
-{    
+public class Base
+{
+    public void ValidateFile(FacesContext context, UIComponent comp, Object value)
+    {
+        Part file = (Part) value;
+        if(file == null || file.getSize() <= 0 || file.getContentType().isEmpty())
+        {
+            ((UIInput) comp).setValid(false);
+            context.addMessage(comp.getClientId(context), new FacesMessage("SELECT A VALID FILE!!!"));
+        }
+        else if(!file.getContentType().endsWith("csv"))
+        {
+            ((UIInput) comp).setValid(false);
+            context.addMessage(comp.getClientId(context), new FacesMessage("SELECT A CSV FILE!!!"));
+        }
+        else if(file.getSize()>500000)
+        {
+            ((UIInput) comp).setValid(false);
+            context.addMessage(comp.getClientId(context), new FacesMessage("FILE SIZE TOO BIG!!!"));
+        }
+    }
+    
     public void ValidateName(FacesContext context, UIComponent comp, Object value)
     {
         String name = (String) value;
