@@ -1,6 +1,5 @@
 package filmdatalayer;
 
-import applicationvariables.ApplicationVariables;
 import filmclasslayer.FilmClassLayer.*;
 import applicationvariables.ApplicationVariables.DataIDs.*;
 import applicationvariables.ApplicationVariables.Database;
