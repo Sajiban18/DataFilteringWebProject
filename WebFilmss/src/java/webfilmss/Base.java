@@ -126,4 +126,10 @@ public class Base
     {
         FacesContext.getCurrentInstance().addMessage("message", new FacesMessage(AddMessage.ms[message]));
     }
+    public void Message(int message1, int message2, int message3)
+    {
+        FacesContext.getCurrentInstance().addMessage("message1", new FacesMessage(AddMessage.ms[message1]));
+        FacesContext.getCurrentInstance().addMessage("message2", new FacesMessage(AddMessage.ms[message2]));
+        FacesContext.getCurrentInstance().addMessage("message3", new FacesMessage(AddMessage.ms[message3]));
+    }
 }

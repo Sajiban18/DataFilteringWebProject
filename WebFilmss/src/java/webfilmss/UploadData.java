@@ -1,7 +1,13 @@
 package webfilmss;
 
+import filmbusinesslayer.FilmBusinessLayer;
+import java.io.File;
 import java.io.IOException;
-import java.util.Scanner;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.servlet.http.Part;
@@ -12,13 +18,21 @@ import javax.servlet.http.Part;
 public class UploadData
 {
     private Part file;
-    private String fileContent;
+    private String fileName, filePath;
     
-    public void upload() throws IOException
+    public void upload() throws IOException, SQLException, ClassNotFoundException
     {
-        try
+        try(InputStream input = file.getInputStream())
         {
-            fileContent = new Scanner(file.getInputStream()).useDelimiter("\\A").next();
+            fileName = "CSVDATA " + new SimpleDateFormat("dd-MM-yyyy").format(new Date()) + ".csv";
+            filePath = "C:\\Users\\sajiban_18\\Documents\\";
+            Files.copy(input, new File(filePath, fileName).toPath());
+            FilmBusinessLayer fbl = new FilmBusinessLayer();
+            
+            int[] temp = fbl.UploadData(filePath+fileName);
+            
+            Base base = new Base();
+            base.Message(temp[0], temp[1], temp[2]);
         }
         catch(IOException e)
         {
