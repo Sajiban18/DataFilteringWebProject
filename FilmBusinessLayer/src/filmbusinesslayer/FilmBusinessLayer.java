@@ -2,8 +2,10 @@ package filmbusinesslayer;
 
 import filmclasslayer.FilmClassLayer;
 import filmclasslayer.FilmClassLayer.*;
+import applicationvariables.ApplicationVariables.Database;
 import filmdatalayer.*;
 import filmutilitylayer.FilmUtilityLayer;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import org.ehcache.Cache;
@@ -44,9 +46,46 @@ public class FilmBusinessLayer
         }
     }
     
-    public void UploadData(String csvPath)
+    public int[] UploadData(String csvPath) throws SQLException, IOException, ClassNotFoundException
     {
+        Films films = new FilmDataLayer().GetFilm(csvPath);
+        int filmoutcome = 10, actoroutcome = 10, directoroutcome = 10;
         
+        Class.forName("com.mysql.jdbc.Driver");
+        FilmDataLayer fdl = new FilmDataLayer();
+        
+        for(Film film : films)
+        {
+            filmoutcome = fdl.AddFilmToSql(film.FilmID, film.FilmName, film.FilmYear, film.ImdbRating);
+            for(Actor actor : film.Actors)
+            {
+                FilmUtilityLayer ful = new FilmUtilityLayer();
+                String[] AName = ful.SplitNames(actor.PersonName);
+                String AFirstname = AName[0], ASurname = AName[1];
+                
+                actoroutcome = fdl.AddPersonToSql(film.FilmID, AFirstname, ASurname, actor.PersonID, Database.ActorQuery);
+            }
+            for(Director director : film.Directors)
+            {
+                FilmUtilityLayer ful = new FilmUtilityLayer();
+                String[] DName = ful.SplitNames(director.PersonName);
+                String DFirstname = DName[0], DSurname = DName[1];
+                
+                directoroutcome = fdl.AddPersonToSql(film.FilmID, DFirstname, DSurname, director.PersonID, Database.DirectorQuery);
+            }
+        }
+        
+        if((filmoutcome == 2) && (actoroutcome == 4 || actoroutcome == 5) && (directoroutcome == 8 || directoroutcome == 9))
+        {
+            FilmUtilityLayer.CacheData().clear();
+            int[] outcome = {filmoutcome, actoroutcome, directoroutcome};
+            return outcome;
+        }
+        else
+        {
+            int[] outcome = {filmoutcome, actoroutcome, directoroutcome};
+            return outcome;
+        }
     }
     
     public Films GetFilms(String csvPath)
@@ -59,7 +98,6 @@ public class FilmBusinessLayer
                 Films film = fdl.GetSqlFilm();
                 //Films film = fdl.GetCsvData(csvPath);
                 FilmUtilityLayer.put(film, cache);
-                 
             }
             return FilmUtilityLayer.get(cache);
         }
