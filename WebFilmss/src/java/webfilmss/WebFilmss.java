@@ -240,5 +240,4 @@ public class WebFilmss implements Serializable
         public void setDirectorLink(String dlink){this.DirectorLink = dlink;}
     public String getActorLink(){return this.ActorLink;}
         public void setActorLink(String alink){this.ActorLink = alink;}
-    
 }

@@ -21,7 +21,6 @@ public class AddDirector
         base.Message(fbl.AddPerson(fid, dfname, dsname, did, Database.DirectorQuery));
     }
     
-    
     public String getDFName(){return this.dfname;}
         public void setDFName(String dffname){this.dfname = dffname;}
     public String getDSName(){return this.dsname;}

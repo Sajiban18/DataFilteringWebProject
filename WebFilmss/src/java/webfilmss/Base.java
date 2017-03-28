@@ -14,6 +14,8 @@ import javax.servlet.http.Part;
 
 public class Base
 {
+    //----------   VALIDATE UPLOAD FILE   ----------
+    
     public void ValidateFile(FacesContext context, UIComponent comp, Object value)
     {
         Part file = (Part) value;
@@ -34,11 +36,15 @@ public class Base
         }
     }
     
+    //----------   VALIDATE NAME   ----------
+    
     public void ValidateName(FacesContext context, UIComponent comp, Object value)
     {
         String name = (String) value;
         // Validate Name (No Numeric Values, Spaces, other characters except ' 
     }
+    
+    //----------   VALIDATE IMDB ID   ----------
     
     public void ValidateImdbID(FacesContext context, UIComponent comp, Object value)
     {
@@ -50,6 +56,8 @@ public class Base
         }
     }
     
+    //----------   VALIDATE YEAR   ----------
+    
     public void ValidateFilmYear(FacesContext context, UIComponent comp, Object value)
     {
         String year = (String) value;
@@ -60,6 +68,8 @@ public class Base
         }
     }
     
+    //----------   VALIDATE IMDB RATING   ----------
+    
     public void ValidateFilmRating(FacesContext context, UIComponent comp, Object value)
     {
         String rating = (String) value;
@@ -69,6 +79,8 @@ public class Base
             context.addMessage(comp.getClientId(context), new FacesMessage("***Film Rating*** Incorrect Format"));
         }
     }
+    
+    //----------   NUMBER & LENGTH CHECK   ----------
     
     public boolean NumberAndLengthCheck(String value, int length)
     {
@@ -83,6 +95,8 @@ public class Base
         }
     }
     
+    //----------   CHECK IF DOUBLE   ----------
+    
     public boolean isDouble(String value)
     {
         try
@@ -95,6 +109,8 @@ public class Base
             return false;
         }
     }
+    
+    //----------   CHECK IF IN RANGE   ----------
     
     public boolean inRange(double Minimum, double Maximum, String value)
     {
@@ -122,10 +138,13 @@ public class Base
         }
     }
     
+    //----------   USER MESSAGE   ----------
+    
     public void Message(int message)
     {
         FacesContext.getCurrentInstance().addMessage("message", new FacesMessage(AddMessage.ms[message]));
     }
+    
     public void Message(int message1, int message2, int message3)
     {
         FacesContext.getCurrentInstance().addMessage("message1", new FacesMessage(AddMessage.ms[message1]));

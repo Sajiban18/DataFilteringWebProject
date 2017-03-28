@@ -21,7 +21,6 @@ public class AddActor
         base.Message(fbl.AddPerson(fid, afname, asname, aid, Database.ActorQuery));
     }
     
-    
     public String getAFName(){return this.afname;}
         public void setAFName(String affname){this.afname = affname;}
     public String getASName(){return this.asname;}
