@@ -37,9 +37,10 @@ public class FilmDataLayer
         }
     }
     
+    //----------   ADD FILM TO MYSQL   ----------
+    
     public int AddFilmToSql(String fid, String fname, String fyear, String frating) throws SQLException
     {
-        //CallableStatement stmt = null;
         try
         {
             String query = Database.FilmQuery;
@@ -68,6 +69,8 @@ public class FilmDataLayer
         return 10;
     }
     
+    //----------   ADD PERSON TO MYSQL   ----------
+    
     public int AddPersonToSql(String fid, String pfname, String psname, String pid, String query) throws SQLException
     {
         try(CallableStatement stmt = conn.prepareCall(query))
@@ -93,6 +96,8 @@ public class FilmDataLayer
         }
         return 10;
     }
+    
+    //---------- GET FILM   ----------
     
     public Films GetSqlFilm() throws SQLException
     {
@@ -153,75 +158,6 @@ public class FilmDataLayer
         }
         return films;
     }
-    //----------   GET SQL DATA   ----------
-    
-    /*public Films GetSqlData() throws SQLException
-    {
-        //ResultSet rs = conn.prepareStatement("SELECT film_id From Films WHERE is_archived = FALSE").executeQuery();
-        ResultSet rs = conn.prepareStatement("SELECT film_id From Films").executeQuery();
-        while(rs.next())
-        {
-            GetSqlFilm(Integer.parseInt(rs.getString("film_id")));
-        }
-        rs.close();
-        conn.close();
-        return films;
-    }
-    
-    public void GetSqlFilm(int filmID) throws SQLException
-    {
-        try
-        {
-            String query = "{CALL testFilmDetails(?)}";
-            //Scrollable result sets
-            CallableStatement stmt = conn.prepareCall(query);
-            stmt.setInt(1, filmID); //Right value is the fid
-            
-            boolean isResultSet = stmt.execute();
-            if(!isResultSet){}
-            
-            //----------   FILM   ----------
-            ResultSet res = stmt.getResultSet();
-            while (res.next())
-            {
-                sqlline[0] = res.getString(SqlLists.FilmID);
-                sqlline[1] = res.getString(SqlLists.FilmName);
-                sqlline[2] = res.getString(SqlLists.ImdbRating); // add these into application variable
-                sqlline[7] = res.getString(SqlLists.FilmYear);
-            
-                isResultSet = stmt.getMoreResults();
-                if(!isResultSet){}
-
-                //----------   DIRECTOR   ----------
-                res = stmt.getResultSet();
-                while (res.next())
-                {
-                    sqlline[3] = res.getString(SqlLists.DirectorID);
-                    sqlline[4] = res.getString(SqlLists.DirectorName);
-                    
-                    isResultSet = stmt.getMoreResults();
-                    if(!isResultSet){}
-
-                    //----------   ACTOR   ----------
-                    res = stmt.getResultSet();
-                    while (res.next())
-                    {
-                        sqlline[5] = res.getString(SqlLists.ActorID);
-                        sqlline[6] = res.getString(SqlLists.ActorName);
-                        LoadData(true, sqlline);
-                    }
-                    res.close();
-                }
-                res.close();
-            }
-            res.close();
-        }
-        catch (SQLException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }    
-    }*/
     
     //----------   GET CSV DATA   ----------
     
@@ -242,6 +178,8 @@ public class FilmDataLayer
         }
         return films;
     }*/
+    
+    //----------   LOAD DATA   ----------
     
     public Films LoadData(boolean SQL, String[] line, Films films)
     {
@@ -297,6 +235,8 @@ public class FilmDataLayer
         return tmpfilms;
     }
     
+    //----------   GET FILM, ACTOR & DIRECTOR FROM CSV   ----------
+    
     private Director getDirectorFromCSV(String[] record)
     {
         Director director = fcl.new Director(record[CsvItem_Movies.DirectorID].trim(), record[CsvItem_Movies.DirectorName].trim());
@@ -318,6 +258,8 @@ public class FilmDataLayer
         film.Actors.add(actor);
         return film;
     }
+    
+    //----------   GET FILM, ACTOR & DIRECTOR FROM MYSQL   ----------
     
     private Director getDirectorFromSQL(String[] record)
     {
