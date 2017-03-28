@@ -16,6 +16,8 @@ public class FilmBusinessLayer
     FilmClassLayer fcl = new FilmClassLayer();
     static Cache cache = FilmUtilityLayer.CacheData();
     
+    //----------   ADD FILM   ----------
+    
     public int AddFilm(String fid, String fname, String fyear, String frating) throws SQLException
     {
         FilmDataLayer fdl = new FilmDataLayer();
@@ -31,6 +33,8 @@ public class FilmBusinessLayer
         }
     }
     
+    //----------   ADD PERSON   ----------
+    
     public int AddPerson(String fid, String dfname, String dsname, String did, String query) throws SQLException
     {
         FilmDataLayer fdl = new FilmDataLayer();
@@ -45,6 +49,8 @@ public class FilmBusinessLayer
             return outcome;
         }
     }
+    
+    //----------   UPLOAD DATA   ----------
     
     public int[] UploadData(String csvPath) throws SQLException, IOException, ClassNotFoundException
     {
@@ -87,6 +93,8 @@ public class FilmBusinessLayer
             return outcome;
         }
     }
+    
+    //----------   GET FILMS   ----------
     
     public Films GetFilms(String csvPath)
     {
