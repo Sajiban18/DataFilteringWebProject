@@ -62,8 +62,9 @@ public class ApplicationVariables
             public static String Seven = "Director Already Linked With Film!!!";
             public static String Eight = "Director Has Been Successfully Linked To Film!!!";
             public static String Nine = "Director Has Been Successfully Added and Linked To Film!!!";
+            public static String Ten = "Test Error: Ten '10'";
             
-            public static String ms[] = {Zero, One, Two, Three, Four, Five, Six, Seven, Eight, Nine};
+            public static String ms[] = {Zero, One, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten};
             
         }
     }
