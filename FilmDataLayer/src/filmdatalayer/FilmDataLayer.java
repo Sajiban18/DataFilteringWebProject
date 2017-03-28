@@ -6,6 +6,7 @@ import applicationvariables.ApplicationVariables.Database;
 import applicationvariables.ApplicationVariables.SystemValues.*;
 import com.opencsv.CSVReader;
 import filmclasslayer.FilmClassLayer;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
@@ -38,12 +39,12 @@ public class FilmDataLayer
     
     public int AddFilmToSql(String fid, String fname, String fyear, String frating) throws SQLException
     {
-        CallableStatement stmt = null;
+        //CallableStatement stmt = null;
         try
         {
             String query = Database.FilmQuery;
             
-            stmt = conn.prepareCall(query);
+            CallableStatement stmt = conn.prepareCall(query);
             stmt.setString(1, fid);
             stmt.setString(2, fname);
             stmt.setString(3, fyear);
@@ -61,18 +62,16 @@ public class FilmDataLayer
         }
         finally
         {
-            stmt.close();
-            conn.close();
+            //stmt.close();
+            //conn.close();
         }
-        return 99;
+        return 10;
     }
     
     public int AddPersonToSql(String fid, String pfname, String psname, String pid, String query) throws SQLException
     {
-        CallableStatement stmt = null;
-        try
-        {         
-            stmt = conn.prepareCall(query);
+        try(CallableStatement stmt = conn.prepareCall(query))
+        {
             stmt.setString(1, fid);
             stmt.setString(2, pid);
             stmt.setString(3, pfname);
@@ -90,10 +89,9 @@ public class FilmDataLayer
         }
         finally
         {
-            stmt.close();
-            conn.close();
+            //conn.close();
         }
-        return 99;
+        return 10;
     }
     
     public Films GetSqlFilm() throws SQLException
@@ -122,7 +120,7 @@ public class FilmDataLayer
                 sqlline[6] = res.getString(SqlLists.ActorName);
                 sqlline[7] = res.getString(SqlLists.FilmYear);
                 
-                LoadData(true, sqlline);
+                films = LoadData(true, sqlline, films);
             }
             res.close();
         
@@ -134,6 +132,25 @@ public class FilmDataLayer
             // TODO Auto-generated catch block
             e.printStackTrace();
         } 
+        return films;
+    }
+    
+    public Films GetFilm(String csvPath) throws FileNotFoundException, IOException
+    {
+        films = fcl.new Films();
+        
+        try(CSVReader csv = new CSVReader(new FileReader(csvPath));)
+        {
+            String[] headers = csv.readNext();
+            while((csvline = csv.readNext()) != null)
+            {
+                films = LoadData(false, csvline, films);
+            }
+        }
+        catch(IOException ex)
+        {
+            
+        }
         return films;
     }
     //----------   GET SQL DATA   ----------
@@ -208,7 +225,7 @@ public class FilmDataLayer
     
     //----------   GET CSV DATA   ----------
     
-    public Films GetCsvData(String csvPath)
+    /*public Films GetCsvData(String csvPath)
     {   
         try(CSVReader csv = new CSVReader(new FileReader(csvPath), ',');)
         {
@@ -224,15 +241,16 @@ public class FilmDataLayer
             //do something
         }
         return films;
-    }
+    }*/
     
-    public void LoadData(boolean SQL, String[] line)
-    {   
+    public Films LoadData(boolean SQL, String[] line, Films films)
+    {
+        Films tmpfilms = films;
         if (SQL == true)
         {
-            if(films.stream().anyMatch(item -> item.FilmID.equals(sqlline[Sql_Movies.FilmID])))
+            if(tmpfilms.stream().anyMatch(item -> item.FilmID.equals(sqlline[Sql_Movies.FilmID])))
             {
-                Film tmpFilm = films.stream().filter(item -> item.FilmID.equals(sqlline[Sql_Movies.FilmID])).findFirst().get();
+                Film tmpFilm = tmpfilms.stream().filter(item -> item.FilmID.equals(sqlline[Sql_Movies.FilmID])).findFirst().get();
                 if(tmpFilm.Directors.stream().anyMatch(item -> item.PersonID.equals(sqlline[Sql_Movies.DirectorID]))){}
                 else
                 {
@@ -249,14 +267,14 @@ public class FilmDataLayer
             else
             {
                 Film film = this.getFilmFromSQL(sqlline);
-                films.add(film);
+                tmpfilms.add(film);
             }
         }
         else
         {   
-            if(films.stream().anyMatch(item -> item.FilmID.equals(csvline[CsvItem_Movies.FilmID])))
+            if(tmpfilms.stream().anyMatch(item -> item.FilmID.equals(csvline[CsvItem_Movies.FilmID])))
             {
-                Film tmpFilm = films.stream().filter(item -> item.FilmID.equals(csvline[CsvItem_Movies.FilmID])).findFirst().get();
+                Film tmpFilm = tmpfilms.stream().filter(item -> item.FilmID.equals(csvline[CsvItem_Movies.FilmID])).findFirst().get();
                 if(tmpFilm.Directors.stream().anyMatch(item -> item.PersonID.equals(csvline[CsvItem_Movies.DirectorID]))){}
                 else
                 {
@@ -273,9 +291,10 @@ public class FilmDataLayer
             else
             {
                 Film film = this.getFilmFromCSV(csvline);
-                films.add(film);
+                tmpfilms.add(film);
             }
         }
+        return tmpfilms;
     }
     
     private Director getDirectorFromCSV(String[] record)
