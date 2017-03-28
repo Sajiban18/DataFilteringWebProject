@@ -9,7 +9,7 @@ import org.ehcache.config.builders.ResourcePoolsBuilder;
 
 public class FilmUtilityLayer
 {
-    //static Cache test = CacheData();
+    //----------   CACHING DATA   ----------
     
     public static Cache CacheData()
     {
@@ -37,6 +37,8 @@ public class FilmUtilityLayer
     {
         return (Films)myCache.get("preConfigured");
     }
+    
+    //----------   SPLIT NAMES   ----------
     
     public String[] SplitNames(String value)
     {
