@@ -37,4 +37,19 @@ public class FilmUtilityLayer
     {
         return (Films)myCache.get("preConfigured");
     }
+    
+    public String[] SplitNames(String value)
+    {
+        String Firstname = "", Surname;
+        String[] temp;
+        temp = value.split(" ");
+        Surname = temp[temp.length - 1];
+        
+        for(int i = 0; i < (temp.length - 1); i++)
+        {
+            Firstname = Firstname + temp[i] + " ";
+        }
+        String FinalOutput[] = {Firstname, Surname};
+        return FinalOutput;
+    }
 }
