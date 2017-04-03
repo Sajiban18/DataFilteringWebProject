@@ -9,62 +9,72 @@
         <h:outputStylesheet library="css" name="style.css"/>
         <title>Films Application</title>
     </h:head>
+    
     <h:body class="page">
         <div class="title">Web Films Project</div>
-        <h:form class="dropdown">
-            <br/>
-            
-            <h:panelGrid columns="3">
-                <h:outputLabel styleClass="dropdowntitle">Film:</h:outputLabel>
-                    <h:selectOneMenu styleClass="dropdownlist" value="#{webFilmss.SFilm}" valueChangeListener="#{webFilmss.changeFilm}"
+        <h:form>
+            <div class="button_window">
+                <h:commandButton class="button" value="Add Data" action="add" rendered="true"/><br/>
+                <h:commandButton class="button" value="Upload Data" action="uploadData" rendered="true"/><br/>
+            </div>
+        
+            <div class="dropdown_window">
+                <div>
+                <h:panelGrid columns="3">
+                    <h:outputLabel styleClass="dropdowntitle">Film:</h:outputLabel>
+                        <h:selectOneMenu styleClass="dropdownlist" value="#{webFilmss.SFilm}" valueChangeListener="#{webFilmss.changeFilm}"
                                 onchange="submit()" immediate="true">
-                        <f:selectItems value="#{webFilmss.SFilmOptions.entrySet()}" var="a"
-                                    itemValue="#{a.value}" itemLabel="#{a.key}"/>
-                    </h:selectOneMenu>
-                <br/>
-                <br/>
+                            <f:selectItems value="#{webFilmss.SFilmOptions.entrySet()}" var="a"
+                                itemValue="#{a.value}" itemLabel="#{a.key}"/>
+                        </h:selectOneMenu>
+                    <br/>
+                    <br/>
                 
-                <h:outputLabel styleClass="dropdowntitle">Director:</h:outputLabel>
-                    <h:selectOneMenu styleClass="dropdownlist" value="#{webFilmss.director}" valueChangeListener="#{webFilmss.changeDirector}"
+                    <h:outputLabel styleClass="dropdowntitle">Director:</h:outputLabel>
+                        <h:selectOneMenu styleClass="dropdownlist" value="#{webFilmss.director}" valueChangeListener="#{webFilmss.changeDirector}"
                                 onchange="submit()" immediate="true">
-                        <f:selectItems value="#{webFilmss.directorOptions.entrySet()}" var="b"
-                                    itemValue="#{b.value}" itemLabel="#{b.key}"/>
-                    </h:selectOneMenu>
-                <br/>
-                <br/>
+                            <f:selectItems value="#{webFilmss.directorOptions.entrySet()}" var="b"
+                                itemValue="#{b.value}" itemLabel="#{b.key}"/>
+                        </h:selectOneMenu>
+                    <br/>
+                    <br/>
                 
-                <h:outputLabel styleClass="dropdowntitle">Actor:</h:outputLabel>
-                    <h:selectOneMenu styleClass="dropdownlist" value="#{webFilmss.actor}" valueChangeListener="#{webFilmss.changeActor}"
+                    <h:outputLabel styleClass="dropdowntitle">Actor:</h:outputLabel>
+                        <h:selectOneMenu styleClass="dropdownlist" value="#{webFilmss.actor}" valueChangeListener="#{webFilmss.changeActor}"
                                 onchange="submit()" immediate="true">
-                        <f:selectItems value="#{webFilmss.actorOptions.entrySet()}" var="c"
-                                    itemValue="#{c.value}" itemLabel="#{c.key}"/>
-                    </h:selectOneMenu>
-                <br/>
-                <br/>
+                            <f:selectItems value="#{webFilmss.actorOptions.entrySet()}" var="c"
+                                itemValue="#{c.value}" itemLabel="#{c.key}"/>
+                        </h:selectOneMenu>
+                    <br/>
+                    <br/>
                 
-                <h:outputLabel styleClass="dropdowntitle">Year:</h:outputLabel>
-                    <h:selectOneMenu styleClass="dropdownlist" value="#{webFilmss.FYear}" valueChangeListener="#{webFilmss.changeFYear}"
+                    <h:outputLabel styleClass="dropdowntitle">Year:</h:outputLabel>
+                        <h:selectOneMenu styleClass="dropdownlist" value="#{webFilmss.FYear}" valueChangeListener="#{webFilmss.changeFYear}"
                                 onchange="submit()" immediate="true">
-                        <f:selectItems value="#{webFilmss.FYearOptions.entrySet()}" var="d"
-                                    itemValue="#{d.value}" itemLabel="#{d.key}"/>
-                    </h:selectOneMenu>
-                <br/>
-                <br/>
+                            <f:selectItems value="#{webFilmss.FYearOptions.entrySet()}" var="d"
+                                itemValue="#{d.value}" itemLabel="#{d.key}"/>
+                        </h:selectOneMenu>
+                    <br/>
+                    <br/>
                 
-                <h:outputLabel styleClass="dropdowntitle">Imdb Rating:</h:outputLabel>
-                    <h:selectOneMenu styleClass="dropdownlist" value="#{webFilmss.IRating}" valueChangeListener="#{webFilmss.changeIRating}"
+                    <h:outputLabel styleClass="dropdowntitle">Imdb Rating:</h:outputLabel>
+                        <h:selectOneMenu styleClass="dropdownlist" value="#{webFilmss.IRating}" valueChangeListener="#{webFilmss.changeIRating}"
                                 onchange="submit()" immediate="true">
-                        <f:selectItems value="#{webFilmss.IRatingOptions.entrySet()}" var="e"
-                                    itemValue="#{e.value}" itemLabel="#{e.key}"/>
-                    </h:selectOneMenu>
-                <br/>
-                <br/>
-            </h:panelGrid>
-            <h:commandButton class="reset" value="Reset" action="#{webFilmss.reloadPage}" rendered="true"/> 
+                            <f:selectItems value="#{webFilmss.IRatingOptions.entrySet()}" var="e"
+                                itemValue="#{e.value}" itemLabel="#{e.key}"/>
+                        </h:selectOneMenu>
+                    <br/>
+                    <br/>
+                </h:panelGrid>
+                </div> 
+                <h:commandButton class="reset" value="Reset" action="#{webFilmss.reloadPage}" rendered="true"/>
+            </div>
         </h:form>
         
+        
+        <h:form class="description_window">    
         <h3>Film Details</h3>
-        <h:form class="filmdescription">
+        <div class="filmdescription">
             <h:panelGrid columns="5" border="2">
                 <h:panelGroup>Film Name</h:panelGroup>
                 <h:panelGroup>Imdb Rating</h:panelGroup>
@@ -78,13 +88,7 @@
                 <h:panelGroup> <h:outputLink value="#{webFilmss.actorLink}"> <h:outputLabel value="#{webFilmss.actorName}"/> </h:outputLink> </h:panelGroup>
                 <h:panelGroup> <h:outputLabel value="#{webFilmss.filmYear}"/> </h:panelGroup>
             </h:panelGrid>
-        </h:form>
-        
-        <h:form class="buttons">
-            <h:commandButton value="Add Film" action="addFilm" rendered="true"/>
-            <h:commandButton value="Add Director" action="addDirector" rendered="true"/>
-            <h:commandButton value="Add Actor" action="addActor" rendered="true"/>
-            <h:commandButton value="Upload Data" action="uploadData" rendered="true"/>
+        </div>    
         </h:form>
     </h:body>
 </html>
